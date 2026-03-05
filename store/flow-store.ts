@@ -6,6 +6,8 @@ import * as htmlToImage from 'html-to-image';
 export type NodeStatus = 'idle' | 'running' | 'success' | 'error';
 export type FlowState = 'idle' | 'running' | 'paused' | 'completed' | 'error';
 export type DeviceMode = 'desktop' | 'tablet' | 'mobile';
+export type AspectRatio = '1:1' | '4:5' | '9:16';
+export type SlideLayout = 'standard' | 'split' | 'full-image' | 'text-only';
 
 export interface Artifact {
   id: string;
@@ -24,6 +26,9 @@ export interface Slide {
   image_prompt?: string;
   image_base64?: string;
   isGeneratingImage?: boolean;
+  layout?: SlideLayout;
+  hook_score?: number;
+  hook_feedback?: string;
 }
 
 export interface CarouselTheme {
@@ -41,12 +46,14 @@ interface FlowStore {
   artifacts: Artifact[];
   messages: { role: 'user' | 'model' | 'system', text: string }[];
   deviceMode: DeviceMode;
+  aspectRatio: AspectRatio;
   
   slides: Slide[];
   theme: CarouselTheme;
   templateStyle: TemplateStyle;
 
   setDeviceMode: (mode: DeviceMode) => void;
+  setAspectRatio: (ratio: AspectRatio) => void;
   setTheme: (theme: Partial<CarouselTheme>) => void;
   setTemplateStyle: (style: TemplateStyle) => void;
   addSlide: (slide: Partial<Slide>) => void;
@@ -120,6 +127,7 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
     { role: 'system', text: 'Carousel Studio OS initialized. Describe the carousel you want to create.' }
   ],
   deviceMode: 'desktop',
+  aspectRatio: '9:16',
   
   slides: [],
   theme: {
@@ -130,6 +138,7 @@ export const useFlowStore = create<FlowStore>((set, get) => ({
   templateStyle: 'cinematic',
 
   setDeviceMode: (mode) => set({ deviceMode: mode }),
+  setAspectRatio: (ratio) => set({ aspectRatio: ratio }),
   setTheme: (themeUpdate) => set((state) => ({ theme: { ...state.theme, ...themeUpdate } })),
   setTemplateStyle: (style) => set({ templateStyle: style }),
   
