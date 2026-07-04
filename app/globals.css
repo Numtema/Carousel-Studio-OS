@@ -17,19 +17,7 @@
 }
 
 :root {
-  /* Dark mode (default) */
-  --bg: #0A0A0A;
-  --surface: #141414;
-  --elevated: #1F1F1F;
-  --moss: #2E4036;
-  --clay: #CC5833;
-  --text-primary: #F1F1F1;
-  --text-secondary: #A8A8A8;
-  --border: rgba(255, 255, 255, 0.1);
-}
-
-.light {
-  /* Light mode */
+  /* Light mode (default) */
   --bg: #F8F9FA;
   --surface: #FFFFFF;
   --elevated: #F1F3F5;
@@ -38,6 +26,18 @@
   --text-primary: #121212;
   --text-secondary: #6B7280;
   --border: rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  /* Dark mode */
+  --bg: #0A0A0A;
+  --surface: #141414;
+  --elevated: #1F1F1F;
+  --moss: #2E4036;
+  --clay: #CC5833;
+  --text-primary: #F1F1F1;
+  --text-secondary: #A8A8A8;
+  --border: rgba(255, 255, 255, 0.1);
 }
 
 body {

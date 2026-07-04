@@ -31,6 +31,8 @@ const caveat = Caveat({
   variable: '--font-caveat',
 });
 
+import { ThemeProvider } from '@/components/theme-provider';
+
 export const metadata: Metadata = {
   title: 'Carousel Studio OS',
   description: 'Directed Creative Operating System for Carousels',
@@ -38,19 +40,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} ${jetbrainsMono.variable} ${poppins.variable} ${caveat.variable} dark`} suppressHydrationWarning>
+    <html lang="en" className={`${plusJakartaSans.variable} ${cormorantGaramond.variable} ${jetbrainsMono.variable} ${poppins.variable} ${caveat.variable}`} suppressHydrationWarning>
       <body className="bg-background text-text-primary antialiased selection:bg-clay selection:text-white overflow-hidden">
-        {/* Noise Overlay */}
-        <div className="pointer-events-none fixed inset-0 z-[9999] opacity-[0.02]">
-          <svg width="100%" height="100%">
-            <filter id="noise">
-              <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-              <feColorMatrix type="saturate" values="0" />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#noise)" />
-          </svg>
-        </div>
-        {children}
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          {/* Noise Overlay */}
+          <div className="pointer-events-none fixed inset-0 z-[9999] opacity-[0.02]">
+            <svg width="100%" height="100%">
+              <filter id="noise">
+                <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+                <feColorMatrix type="saturate" values="0" />
+              </filter>
+              <rect width="100%" height="100%" filter="url(#noise)" />
+            </svg>
+          </div>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
