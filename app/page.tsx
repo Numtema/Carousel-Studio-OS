@@ -10,9 +10,14 @@ import { ArtifactsView } from '@/components/views/artifacts-view';
 import { TemplatesView } from '@/components/views/templates-view';
 import { ProjectsView } from '@/components/views/projects-view';
 import { SettingsView } from '@/components/views/settings-view';
+import { AuthView } from '@/components/views/auth-view';
 
 export default function Home() {
-  const { activeView } = useAppStore();
+  const { activeView, isAuthenticated } = useAppStore();
+
+  if (!isAuthenticated) {
+    return <AuthView />;
+  }
 
   const renderView = () => {
     switch (activeView) {

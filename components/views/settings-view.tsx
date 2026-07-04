@@ -6,11 +6,14 @@ import { motion, AnimatePresence } from 'motion/react';
 import { User, CreditCard, Key, Settings, Shield, Bell, LogOut, Moon, Sun, Monitor } from 'lucide-react';
 import { useTheme } from 'next-themes';
 
+import { useAppStore } from '@/store/app-store';
+
 type Tab = 'profile' | 'appearance' | 'billing' | 'api' | 'security' | 'notifications';
 
 export function SettingsView() {
   const [activeTab, setActiveTab] = useState<Tab>('profile');
   const { theme, setTheme } = useTheme();
+  const { setIsAuthenticated } = useAppStore();
 
   const tabClass = (tab: Tab) => 
     `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-colors cursor-pointer ${
@@ -54,7 +57,10 @@ export function SettingsView() {
           </button>
           
           <div className="mt-auto pt-8">
-            <button className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-500/10 text-red-500 transition-colors w-full cursor-pointer">
+            <button 
+              onClick={() => setIsAuthenticated(false)}
+              className="flex items-center gap-3 px-4 py-3 rounded-xl hover:bg-red-500/10 text-red-500 transition-colors w-full cursor-pointer"
+            >
               <LogOut size={18} />
               Sign Out
             </button>

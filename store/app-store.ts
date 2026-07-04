@@ -12,6 +12,8 @@ export interface Project {
 }
 
 interface AppState {
+  isAuthenticated: boolean;
+  setIsAuthenticated: (status: boolean) => void;
   activeView: ViewType;
   setActiveView: (view: ViewType) => void;
   isSidebarCollapsed: boolean;
@@ -27,6 +29,8 @@ interface AppState {
 export const useAppStore = create<AppState>()(
   persist(
     (set) => ({
+      isAuthenticated: false,
+      setIsAuthenticated: (status) => set({ isAuthenticated: status }),
       activeView: 'studio',
       setActiveView: (view) => set({ activeView: view }),
       isSidebarCollapsed: false,
